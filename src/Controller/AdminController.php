@@ -26,6 +26,7 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get('file')->getData();
+
             if ($file) {
                 $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 // this is needed to safely include the file name as part of the URL
@@ -51,6 +52,7 @@ class AdminController extends AbstractController
                 // instead of its contents
                 $image->setFile($newFilename);
             }
+
             $image = $form->getData();
             $entityManager = $doctrine->getManager();
             $entityManager->persist($image);
@@ -69,11 +71,9 @@ class AdminController extends AbstractController
     public function categories(ManagerRegistry $doctrine, Request $request): Response
     {
         $repository = $doctrine->getRepository(Category::class);
-
         $categories = $repository->findAll();
 
-        $category = new Category();
-        $form = $this->createForm(CategoryFormType::class, $category);
+        $form = $this->createForm(CategoryFormType::class, new Category());
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $category = $form->getData();
@@ -81,16 +81,14 @@ class AdminController extends AbstractController
             $entityManager->persist($category);
             $entityManager->flush();
         }
+
         return $this->render('admin/categories.html.twig', array(
             'form' => $form->createView(),
             'categories' => $categories
         ));
-
     }
 
-
-
-    public function adminDashboard(): Response
+    /*public function adminDashboard(): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -98,5 +96,5 @@ class AdminController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
 
         return new Response("Sí que puedes entrar");
-    }
+    }*/
 }

@@ -16,7 +16,6 @@ class SecurityController extends AbstractController
     {
         // controller can be blank: it will never be called!
         throw new Exception('Don\'t forget to activate logout in security.yaml');
-
     }
 
 }

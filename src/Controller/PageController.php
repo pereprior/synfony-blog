@@ -42,6 +42,7 @@ class PageController extends AbstractController
 
             return $this->redirectToRoute('contact_sent');
         }
+
         return $this->render('page/contact.html.twig', array(
             'form' => $form->createView()
         ));
@@ -50,18 +51,18 @@ class PageController extends AbstractController
     #[Route('/contact_sent', name: 'contact_sent')]
     public function contactSent(): Response
     {
-        return $this->render('page/contact_sent.html.twig', []);
+        return $this->render('page/contact_sent.html.twig');
     }
 
     #[Route('/blog', name: 'blog')]
     public function blog(): Response
     {
-        return $this->render('page/blog.html.twig', []);
+        return $this->render('page/blog.html.twig');
     }
 
     #[Route('/single_post', name: 'single_post')]
     public function single_post(): Response
     {
-        return $this->render('page/single_post.html.twig', []);
+        return $this->render('page/single_post.html.twig');
     }
 }
