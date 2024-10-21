@@ -4,9 +4,11 @@ namespace App\Form;
 
 use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class PostFormType extends AbstractType
 {
@@ -15,7 +17,18 @@ class PostFormType extends AbstractType
         $builder
             ->add('title')
             ->add('content')
-            ->add('image')
+            ->add('image', FileType::class,[
+                'mapped' => false,
+                'constraints' => [
+                    new File([
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid image file',
+                    ])
+                ],
+            ])
             ->add('Send', SubmitType::class, [
                 'attr' => [
                     'class' => 'pull-right btn btn-lg sr-button',
