@@ -1,0 +1,13 @@
+<div class="comment">
+    <h4>{{ comment.name }}</h4>
+    <span>
+        <i class="fa fa-star sr-icons"></i>
+        <i class="fa fa-star sr-icons"></i>
+        <i class="fa fa-star sr-icons"></i>
+        <i class="fa fa-star sr-icons"></i>
+        <i class="fa fa-star sr-icons"></i>
+    </span>
+    <p class="time">{{ comment.publishedDate | date('d F') }}</p>
+    <hr>
+    <p>{{ comment.text }}</p>
+</div>
