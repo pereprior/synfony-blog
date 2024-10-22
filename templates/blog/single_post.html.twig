@@ -17,8 +17,8 @@
                         <hr>
                         <ul class="list-inline">
                             <li>{{ post.publishedData | date('d F')}} |</li>
-                            <li><a class="page-scroll" href="#form">{{ post.numComments }} COMMENT</a> |</li>
-                            <li><a href="">{{ post.numLikes }} LIKE</a></li>
+                            <li><a class="page-scroll" href="#form">COMMENT</a> <i class="fa fa-comments sr-icons"></i> {{post.numComments}} |</li>
+                            <li><a href="{{ path('post_like', {slug: post.slug}) }}">LIKE</a> <i class="fa fa-heart sr-icons"></i> {{post.numLikes}}</li>
                         </ul>
                     </div>
                     <div class="col-xs-12 col-sm-3">

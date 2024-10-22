@@ -59,7 +59,6 @@ class BlogController extends AbstractController
         ]);
     }
 
-
     #[Route('/blog/new', name: 'new_post')]
     public function newPost(ManagerRegistry $doctrine, Request $request, SluggerInterface $slugger, FileService $fileService): Response
     {
@@ -97,6 +96,22 @@ class BlogController extends AbstractController
         return $this->render('blog/new_post.html.twig', array(
             'form' => $form->createView()
         ));
+    }
+
+    #[Route('/single_post/{slug}/like', name: 'post_like')]
+    public function like(ManagerRegistry $doctrine, $slug): Response
+    {
+        $repository = $doctrine->getRepository(Post::class);
+        $post = $repository->findOneBy(["slug"=>$slug]);
+
+        if ($post){
+            $post->like();
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($post);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('single_post', ["slug" => $post->getSlug()]);
+
     }
 
 }

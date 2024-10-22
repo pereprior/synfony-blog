@@ -180,4 +180,9 @@ class Post
 
         return $this;
     }
+
+    public function like(): void
+    {
+        $this->numLikes++;
+    }
 }
