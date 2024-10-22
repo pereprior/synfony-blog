@@ -55,10 +55,4 @@ class PageController extends AbstractController
         return $this->render('page/contact_sent.html.twig');
     }
 
-    #[Route('/single_post', name: 'single_post')]
-    public function single_post(): Response
-    {
-        return $this->render('page/single_post.html.twig');
-    }
-
 }

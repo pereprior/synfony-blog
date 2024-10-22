@@ -29,11 +29,7 @@ class PostFormType extends AbstractType
                     ])
                 ],
             ])
-            ->add('Send', SubmitType::class, [
-                'attr' => [
-                    'class' => 'pull-right btn btn-lg sr-button',
-                ],
-            ]);
+            ->add('Send', SubmitType::class);
         ;
     }
 

@@ -27,7 +27,6 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get('file')->getData();
-
             if ($file) {
                 $newFile = $fileService->setFileAsImage($file);
                 $image->setFile($newFile);

@@ -1,0 +1,8 @@
+{% if not post %}
+    <h2>Post not found</h2>
+{% else %}
+    {{post.title}}
+    {{asset('images/blog/' ~ post.image) }}
+    {{post.content}}
+    {{post.publishedData | date('d') }} {{ post.publishedData | date('F') }}
+{% endif %}

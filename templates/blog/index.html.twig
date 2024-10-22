@@ -9,69 +9,28 @@
 
                 <!-- Blocks of Posts -->
                 <div class="col-xs-12 col-sm-8 row">
-                    <div class="col-xs-12 col-sm-12">
-                        <div class="post">
-                            <div class="post-heading">
-                                <span>6 JANUARY</span>
-                                <img class="img-responsive" src="images/blog/landscape.jpg" alt="post's picture">
-                            </div>
-                            <div class="post-body">
-                                <h3><a href="{{ path('single_post') }}"><strong>doloremque illum</strong></a></h3>
-                                <hr>
-                                <p>Duis ultrices tortor non felis convallis bibendum. Maecenas diam velit, sollicitudin at imperdiet ac, consectetur non nibh. Etiam eget dapibus nulla.
-                                </p>
-                            </div>
-                            <div class="post-footer">
-                                <a class="btn" href="{{ path('single_post') }}">READ MORE...</a>
-                                <span>
-                 <i class="fa fa-heart sr-icons"></i> 10
-                 <i class="fa fa-comments sr-icons"></i> 10
-                 </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12">
-                        <div class="post">
-                            <div class="post-heading">
-                                <span>7 FEBRUARY</span>
-                                <img class="img-responsive" src="images/blog/family.jpg" alt="post's picture">
-                            </div>
-                            <div class="post-body">
-                                <h3><a href="{{ path('single_post') }}"><strong>Lorem ipsum</strong></a></h3>
-                                <hr>
-                                <p>Nunc sit amet dapibus est, sit amet varius risus. Donec luctus lacinia mauris, at feugiat ligula facilisis ac. Class aptent taciti sociosqu ad litora torquent per conubia.
-                                </p>
-                            </div>
-                            <div class="post-footer">
-                                <a class="btn" href="{{ path('single_post') }}">READ MORE...</a>
-                                <span>
-                 <i class="fa fa-heart sr-icons"></i> 10
-                 <i class="fa fa-comments sr-icons"></i> 10
-                 </span>
+                    {% for post in posts %}
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="post">
+                                <div class="post-heading">
+                                    <span>{{ post.publishedData | date('d F') }}</span>
+                                    <img class="img-responsive" src="{{ asset('images/index/gallery/' ~ post.image) }}" alt="post's picture">
+                                </div>
+                                <div class="post-body">
+                                    <h3><a href="{{ path('single_post', { 'slug': post.slug }) }}"><strong>{{ post.title }}</strong></a></h3>
+                                    <hr>
+                                    <p>{{ post.content | slice(0, 150) ~ '...' }}</p>
+                                </div>
+                                <div class="post-footer">
+                                    <a class="btn" href="{{ path('single_post', { 'slug': post.slug }) }}">READ MORE...</a>
+                                    <span>
+                                        <i class="fa fa-heart sr-icons"></i> {{ post.numLikes }}
+                                        <i class="fa fa-comments sr-icons"></i> {{ post.numComments }}
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12">
-                        <div class="post">
-                            <div class="post-heading">
-                                <span>8 MARCH</span>
-                                <img class="img-responsive" src="images/blog/elephant.jpg" alt="post's picture">
-                            </div>
-                            <div class="post-body">
-                                <h3><a href="{{ path('single_post') }}"><strong>Aliquam soluta</strong></a></h3>
-                                <hr>
-                                <p>In felis ante, aliquet sit amet venenatis at, feugiat sed leo. Fusce pretium, velit in luctus ornare, elit lorem ultrices tortor, sed consectetur orci risus mollis ante.
-                                </p>
-                            </div>
-                            <div class="post-footer">
-                                <a class="btn" href="{{ path('single_post') }}">READ MORE...</a>
-                                <span>
-                 <i class="fa fa-heart sr-icons"></i> 10
-                 <i class="fa fa-comments sr-icons"></i> 10
-                 </span>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                     <nav class="text-left">
                         <ul class="pagination">
                             <li class="active"><a href="#">1</a></li>
@@ -91,8 +50,8 @@
                         <div class="input-group">
                             <input class="form-control" type="text" placeholder="Research">
                             <span class="input-group-btn">
-                  <a href="" class="btn"><i class="fa fa-search"></i></a>
-               </span>
+                                <a href="" class="btn"><i class="fa fa-search"></i></a>
+                            </span>
                         </div>
                     </form>
                     <div class="panel">
@@ -113,34 +72,24 @@
                         <h4>Soluta</h4>
                         <p>Quod soluta corrupti earum officia vel inventore vitae quidem, consequuntur odit impedit.</p>
                     </div>
+
                     <h3>Recent Posts</h3>
                     <hr>
-                    <div class="post">
-                        <div class="post-heading">
-                            <span>10 APRIL</span>
-                            <img class="img-responsive" src="images/blog/wedding.jpg" alt="post's picture">
+                    {% for recent in recents %}
+                        <div class="post">
+                            <div class="post-heading">
+                                <span>{{recent.publishedData | date('d') }} {{ recent.publishedData | date('F') }}</span>
+                                <img class="img-responsive" src="{{ asset('images/index/gallery/' ~ recent.image) }}" alt="post's picture">
+                            </div>
+                            <div class="post-body">
+                            <span>
+                                <i class="fa fa-heart sr-icons"></i> {{ recent.numLikes }}
+                                <i class="fa fa-comments sr-icons"></i> {{ recent.numComments }}
+                            </span>
+                                <h4 class="text-left"><a href=""><strong>{{ recent.title }}</strong></a></h4>
+                            </div>
                         </div>
-                        <div class="post-body">
-                 <span>
-                 <i class="fa fa-heart sr-icons"></i> 10
-                 <i class="fa fa-comments sr-icons"></i> 10
-                 </span>
-                            <h4 class="text-left"><a href="{{ path('single_post') }}"><strong>Aliquam soluta</strong></a></h4>
-                        </div>
-                    </div>
-                    <div class="post">
-                        <div class="post-heading">
-                            <span>12 MAY</span>
-                            <img class="img-responsive" src="images/blog/woman.jpg" alt="post's picture">
-                        </div>
-                        <div class="post-body">
-                 <span>
-                 <i class="fa fa-heart sr-icons"></i> 10
-                 <i class="fa fa-comments sr-icons"></i> 10
-                 </span>
-                            <h4 class="text-left"><a href="{{ path('single_post') }}"><strong>Consequuntur</strong></a></h4>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
                 <!-- End of Side bar -->
 
