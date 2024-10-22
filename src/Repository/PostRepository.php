@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -32,6 +33,19 @@ class PostRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
             ;
+    }
+
+    /**
+     * @return Post[] Returns an array of Post objects
+     */
+    public function findByText(string $searchTerm): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere("p.content LIKE :val")
+            ->setParameter('val', '%'.$searchTerm.'%')
+            ->orderBy('p.publishedData', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**
